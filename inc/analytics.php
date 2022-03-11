@@ -1,21 +1,22 @@
 <?php
 /**
  * All the analytics we're adding through the code in one place (hopefully!)
+ *
+ * @package CAT
  */
 
-add_action( 'wp_head', 'cat_google_analytics', 10 );
+add_action( 'wp_footer', 'cat_analytics', 10 );
 
-function cat_google_analytics() {
+/**
+ * Function to load required analytics programs into site.
+ * Currently just using Cabin analytics.
+ * Public dashboard is here: https://withcabin.com/public/SLBfduNc4DDE
+ * Ask Hannah or Chris is you want access to the admin version.
+ */
+function cat_analytics() {
 	?>
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-142312056-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', 'UA-142312056-1');
-	</script>
+	<script async defer src="https://scripts.withcabin.com/hello.js"></script>
 
 	<?php
 }
