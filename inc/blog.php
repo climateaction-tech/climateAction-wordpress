@@ -17,3 +17,18 @@ function cat_output_blog_footer() {
 
 	endif;
 }
+
+/**
+ * Add coauthors (Coauthors Plus plugin must be activated)
+ */
+add_filter( 'the_author_posts_link', function( $markup ) {
+	if ( ! function_exists( 'coauthors_posts_links' ) ) {
+		return $markup;
+	}
+
+	ob_start();
+	coauthors_posts_links();
+	$output = ob_get_contents();
+	ob_end_clean();
+	return $output;
+} );
