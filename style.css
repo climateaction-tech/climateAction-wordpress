@@ -92,7 +92,20 @@ h3, h4 {
 .blog .posts-wrapper > article.type-post .nv-post-thumbnail-wrap {
 	display: none;
 }
+/* link hover state blog archive page */
+#content .cover-post a:hover {
+	color: white;
+	opacity: 1;
+	text-decoration: underline;
+}
 
+/*block padding and height */
+#content .cover-post .blog-entry-title {
+	padding-top:0;
+}
+.cover-post {
+	min-height: auto;
+}
 
 /* 10. COMMENTS                 */
 #comments input[type="submit"] {
