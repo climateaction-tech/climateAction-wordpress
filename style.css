@@ -107,6 +107,23 @@ h3, h4 {
 	min-height: auto;
 }
 
+/*sidebar width and margin for single blog page */
+@media (min-width: 960px) {
+	.neve-main>.single-post-container .nv-sidebar-wrap {
+		max-width: 25%;
+		margin-left: 35px;
+	}
+	.nv-sidebar-wrap.nv-right {
+		padding-left: 35px;
+	}
+}
+/*meta layout for single blog page */
+.nv-single-post-wrap .nv-meta-list .author {
+	display: block;
+}
+.nv-single-post-wrap .nv-meta-list .meta.category:after {
+	content:'';
+}
 /* 10. COMMENTS                 */
 #comments input[type="submit"] {
 	background-color: #004880;
