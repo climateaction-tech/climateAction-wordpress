@@ -119,7 +119,7 @@ h3, h4 {
 }
 /*meta layout for single blog page */
 .nv-single-post-wrap .nv-meta-list .author {
-	display: block;
+	width: 100%; /* display authors in their own line */
 }
 .nv-single-post-wrap .nv-meta-list .meta.category:after {
 	content:'';
