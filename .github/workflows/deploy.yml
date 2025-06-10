@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    if: contains(['staging','production'], github.ref_name)
+    if: github.ref_name == 'staging' || github.ref_name == 'production'
     environment: ${{ github.ref_name }}
     runs-on: ubuntu-latest
 
