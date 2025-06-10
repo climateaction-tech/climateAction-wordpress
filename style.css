@@ -5,7 +5,7 @@ Template:       neve
 Author:         Hannah Smith hannah@opcan.co.uk
 Author URI:     https://opcan.co.uk
 Description:    A customised child theme of Neve especially for CAT.
-Version:        1.0.0
+Version:        2.0.0
 License:        GNU General Public License v2 or later
 License URI:    http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:    cat
@@ -25,6 +25,10 @@ Text Domain:    cat
 /* 20. BLOCKS                   */
 /* 20A. YOAST FAQ SCHEMA BLOCKS */
 /* 20B. CLICK TO TWEET BLOCKS   */
+
+.sample-class {
+   color: black;
+}
 
 /* 
 
