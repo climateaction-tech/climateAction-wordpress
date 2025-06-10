@@ -1,0 +1,34 @@
+name: Deploy to Server
+on:
+  push:
+    branches:
+      - staging
+      - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Deploy to Staging
+        if: github.ref == 'refs/heads/staging'
+        env:
+          RSYNC_PASSWORD: ${{ secrets.STAGING_SSH_PASSWORD }}
+        run: |
+          sshpass -p "$RSYNC_PASSWORD" rsync -avz --delete \
+            -e "ssh -p 32529 -o StrictHostKeyChecking=no" \
+            ./ webuser@sites01.sites.onyx.io:~/html/wp-content/themes/climateAction-wordpress
+
+      - name: Deploy to Production
+        if: github.ref == 'refs/heads/production'
+        env:
+          RSYNC_PASSWORD: ${{ secrets.PRODUCTION_SSH_PASSWORD }}
+        run: |
+          sshpass -p "$RSYNC_PASSWORD" rsync -avz --delete \
+            -e "ssh -p 37293 -o StrictHostKeyChecking=no" \
+            ./ webuser@sites01.sites.onyx.io:~/html/wp-content/themes/climateAction-wordpress
