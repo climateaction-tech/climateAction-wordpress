@@ -21,12 +21,12 @@
  * @return string Breadcrumb HTML string
  */
 function cat_wpseo_breadcrumb_output( $output ) : string {
-    if (is_single() || (is_page() && get_post()->post_parent)) {
-	return $output;
-    }
-    else {
-    	return '';
-    }
+	if (is_single() || (is_page() && get_post()->post_parent)) {
+		return $output;
+	}
+	else {
+		return '';
+	}
 };
 
 /**
