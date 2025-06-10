@@ -1,4 +1,5 @@
 name: Deploy to Server
+
 on:
   push:
     branches:
@@ -7,28 +8,33 @@ on:
 
 jobs:
   deploy:
+    if: contains(['staging','production'], github.ref_name)
+    environment: ${{ github.ref_name }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
 
       - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
-
-      - name: Deploy to Staging
-        if: github.ref == 'refs/heads/staging'
-        env:
-          RSYNC_PASSWORD: ${{ secrets.STAGING_SSH_PASSWORD }}
         run: |
-          sshpass -p "$RSYNC_PASSWORD" rsync -avz --delete \
-            -e "ssh -p 32529 -o StrictHostKeyChecking=no" \
-            ./ webuser@sites01.sites.onyx.io:~/html/wp-content/themes/climateAction-wordpress
+          sudo apt-get update
+          sudo apt-get install -y sshpass
 
-      - name: Deploy to Production
-        if: github.ref == 'refs/heads/production'
+      - name: Deploy via rsync
         env:
-          RSYNC_PASSWORD: ${{ secrets.PRODUCTION_SSH_PASSWORD }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          sshpass -p "$RSYNC_PASSWORD" rsync -avz --delete \
-            -e "ssh -p 37293 -o StrictHostKeyChecking=no" \
-            ./ webuser@sites01.sites.onyx.io:~/html/wp-content/themes/climateAction-wordpress
+          sshpass -p "$SSH_PASSWORD" rsync -avz --delete \
+            -e "ssh -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=no" \
+            ./ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/html/wp-content/themes/climateAction-wordpress"
+
+      - name: Clear Autoptimize cache
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$SSH_PASSWORD" ssh -p ${{ secrets.SSH_PORT }} \
+            -o StrictHostKeyChecking=no \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
+            "cd ~/html && wp autoptimize clear"
+
