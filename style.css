@@ -26,11 +26,6 @@ Text Domain:    cat
 /* 20A. YOAST FAQ SCHEMA BLOCKS */
 /* 20B. CLICK TO TWEET BLOCKS   */
 
-* {
-color: green !important;
-background: green !important;
-}
-
 .sample-class {
    color: black;
 }
