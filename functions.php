@@ -20,3 +20,4 @@ require 'inc/blog.php';
 require 'inc/comments.php';
 require 'inc/action-pages.php';
 require 'inc/wordpress-seo.php';
+require 'inc/footer.php';
